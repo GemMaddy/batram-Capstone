@@ -11,7 +11,7 @@ pipeline {
 
 		stage('Build Docker Image') {
 				steps {
-					withCredentials(credentials:'dockerhub'){
+					docker.withRegistery('http://ec2-18-188-155-50.us-east-2.compute.amazonaws.com:8080/','dockerhub'){
 						sh '''
 							docker build -t gemmaddy/capstone .
 						'''
@@ -21,7 +21,7 @@ pipeline {
 
 		stage('Push Image To Dockerhub') {
 				steps {
-					withCredentials(credentials:'dockerhub'){
+					docker.withRegistery('http://ec2-18-188-155-50.us-east-2.compute.amazonaws.com:8080/','dockerhub'){
 						sh '''
 							docker login -u gemmaddy -p executive
 							docker push gemmaddy/capstone
