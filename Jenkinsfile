@@ -3,7 +3,7 @@ pipeline {
 	stages {
 
 		stage('Checking out git repo') {
-    	  	setps {
+    	  	steps {
 				echo 'Checkout...'
       			checkout scm
 			  }			  
