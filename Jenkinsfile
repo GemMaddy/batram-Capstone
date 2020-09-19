@@ -3,8 +3,10 @@ pipeline {
 	stages {
 
 		stage('Checking out git repo') {
-    	  	echo 'Checkout...'
-      		checkout scm
+    	  	setps {
+				echo 'Checkout...'
+      			checkout scm
+			  }			  
     	}
 
 		stage('Build Docker Image') {
