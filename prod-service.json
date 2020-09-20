@@ -1,0 +1,22 @@
+{
+  "kind": "Service",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "prodlb",
+    "labels": {
+      "app": "prodlb"
+    }
+  },
+  "spec": {
+    "ports": [
+      {
+        "port": 8000,
+        "targetPort": 80
+      }
+    ],
+    "selector": {
+      "app": "prod"
+    },
+    "type": "LoadBalancer"
+  }
+}
