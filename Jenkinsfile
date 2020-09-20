@@ -50,7 +50,7 @@ pipeline {
 			}
 		}		
 
-		stage('Create the service in the cluster, redirect to blue') {
+		stage('Create the service in the cluster, redirect to prod') {
 			steps {
 				withAWS(region:'us-east-2', credentials:'devopsroot') {
 					sh '''
