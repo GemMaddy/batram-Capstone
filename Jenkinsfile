@@ -44,7 +44,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-2', credentials:'devopsroot') {
 					sh '''
-						kubectl apply -f ./prod-controller.json
+						kubectl apply -f prod-controller.json
 					'''
 				}
 			}
@@ -54,7 +54,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-east-2', credentials:'devopsroot') {
 					sh '''
-						kubectl apply -f ./prod-service.json
+						kubectl apply -f prod-service.json
 					'''
 				}
 			}
