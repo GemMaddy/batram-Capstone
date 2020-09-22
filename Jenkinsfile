@@ -40,24 +40,50 @@ pipeline {
 			}
 		}
 
-		stage('Deploy prod container') {
+		stage('Deploy blue container') {
 			steps {
 				withAWS(region:'us-east-2', credentials:'devopsroot') {
 					sh '''
-						kubectl apply -f ./prod-controller.json
+						kubectl apply -f ./blue-controller.json
 					'''
 				}
 			}
-		}		
+		}
 
-		stage('Create the service in the cluster, redirect to prod') {
+		stage('Deploy green container') {
 			steps {
 				withAWS(region:'us-east-2', credentials:'devopsroot') {
 					sh '''
-						kubectl apply -f ./prod-service.json
+						kubectl apply -f ./green-controller.json
 					'''
 				}
 			}
-		}				
+		}			
+
+		stage('Create the service in the cluster, redirect to blue') {
+			steps {
+				withAWS(region:'us-east-2', credentials:'devopsroot') {
+					sh '''
+						kubectl apply -f ./blue-service.json
+					'''
+				}
+			}
+		}	
+
+		stage('Wait user approve') {
+            steps {
+                input "Ready to redirect traffic to green?"
+            }
+		}
+
+		stage('Create the service in the cluster, redirect to green') {
+			steps {
+				withAWS(region:'us-east-2', credentials:'devopsroot') {
+					sh '''
+						kubectl apply -f ./green-service.json
+					'''
+				}
+			}
+		}			
 	}	
 }

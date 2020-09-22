@@ -2,20 +2,20 @@
   "kind": "Service",
   "apiVersion": "v1",
   "metadata": {
-    "name": "prodlb",
+    "name": "bluegreenlb",
     "labels": {
-      "app": "prodlb"
+      "app": "bluegreenlb"
     }
   },
   "spec": {
     "ports": [
       {
-        "port": 8001,
+        "port": 8000,
         "targetPort": 80
       }
     ],
     "selector": {
-      "app": "prod"
+      "app": "blue"
     },
     "type": "LoadBalancer"
   }

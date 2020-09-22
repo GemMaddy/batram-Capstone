@@ -2,27 +2,27 @@
   "kind": "ReplicationController",
   "apiVersion": "v1",
   "metadata": {
-    "name": "prod",
+    "name": "green",
     "labels": {
-      "app": "prod"
+      "app": "green"
     }
   },
   "spec": {
     "replicas": 1,
     "selector": {
-      "app": "prod"
+      "app": "green"
     },
     "template": {
       "metadata": {
         "labels": {
-          "app": "prod"
+          "app": "green"
         }
       },
       "spec": {
         "containers": [
           {
-            "name": "prod",
-            "image": "gemmaddy/capstone",
+            "name": "green",
+            "image": "gemmady/capstone",
             "ports": [
               {
                 "name": "http-server",
