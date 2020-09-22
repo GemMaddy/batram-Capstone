@@ -70,9 +70,9 @@ pipeline {
 			}
 		}	
 
-		stage('Wait user approve') {
+		/*stage('Wait user approve') {
             steps {
-                input "Ready to redirect traffic to green?"
+                input "Rredirect to green?"
             }
 		}
 
@@ -84,6 +84,6 @@ pipeline {
 					'''
 				}
 			}
-		}			
+		}	*/		
 	}	
 }
