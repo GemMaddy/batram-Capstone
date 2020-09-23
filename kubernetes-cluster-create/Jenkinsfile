@@ -10,7 +10,7 @@ pipeline {
 						--name capstonecluster \
 						--version 1.17 \
 						--nodegroup-name standard-workers \
-						--node-type t2.medium \
+						--node-type t2.small \
 						--nodes 2 \
 						--nodes-min 1 \
 						--nodes-max 2 \
