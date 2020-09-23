@@ -8,10 +8,10 @@ pipeline {
 					sh '''
 						eksctl create cluster \
 						--name capstonecluster \
-						--version 1.17 \
-						--nodegroup-name standard-workers \
+						--version 1.14 \
+						--nodegroup-name capstone-node-workers \
 						--node-type t2.small \
-						--nodes 2 \
+						--nodes 1 \
 						--nodes-min 1 \
 						--nodes-max 2 \
 						--node-ami auto \
