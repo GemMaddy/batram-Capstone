@@ -20,7 +20,7 @@ pipeline {
 						--zones us-west-2b \
 						--zones us-west-2c \
 						--ssh-access \
-						--ssh-public-key jenkin-access
+						--ssh-public-key k8-key-pair
 					'''
 				}
 			}
