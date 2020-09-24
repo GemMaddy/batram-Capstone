@@ -21,7 +21,6 @@ pipeline {
 						--zones us-west-2c \
 						--ssh-access \
 						--ssh-public-key jenkin-access \
-						--fargate
 					'''
 				}
 			}
