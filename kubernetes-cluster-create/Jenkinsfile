@@ -8,17 +8,21 @@ pipeline {
 					sh '''
 						eksctl create cluster \
 						--name capstonecluster \
-						--version 1.14 \
+						--version 1.17 \
 						--nodegroup-name capstone-node-workers \
-						--node-type t2.small \
+						--node-type t2.micro \
 						--nodes 1 \
 						--nodes-min 1 \
-						--nodes-max 2 \
+						--nodes-max 3 \
 						--node-ami auto \
 						--region us-east-2 \
 						--zones us-east-2a \
 						--zones us-east-2b \
 						--zones us-east-2c \
+						--ssh-access \
+						--ssh-public-key jenkin-access \
+						--fargate
+						--managed
 					'''
 				}
 			}
