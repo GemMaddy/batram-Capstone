@@ -22,7 +22,6 @@ pipeline {
 						--ssh-access \
 						--ssh-public-key jenkin-access \
 						--fargate
-						--managed
 					'''
 				}
 			}
