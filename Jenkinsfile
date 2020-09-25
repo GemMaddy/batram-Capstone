@@ -2,7 +2,7 @@ pipeline {
   agent any
 	stages {
 
-		stage('Checking out git repo') {
+		/*stage('Checking out git repo') {
     	  	steps {
 				echo 'Checkout...'
       			checkout scm
@@ -28,9 +28,9 @@ pipeline {
 						'''
 					}
 				}
-			}	
+			}*/	
 
-		/*stage('Set current kubectl context') {
+		stage('Set current kubectl context') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
@@ -94,6 +94,6 @@ pipeline {
 					'''
 				}
 			}
-		}	*/		
+		}			
 	}	
 }
