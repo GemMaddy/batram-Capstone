@@ -40,7 +40,7 @@ pipeline {
 			}
 		}
 		
-		stage('Build image for K8') {
+		/*stage('Build image for K8') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {					
 						sh '''
@@ -52,7 +52,7 @@ pipeline {
 						'''					
 					}				
 			}
-		}	
+		}	*/
 
 		stage('Deploy blue container') {
 			steps {
