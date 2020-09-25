@@ -2,7 +2,7 @@ pipeline {
   agent any
 	stages {
 
-		stage('Checking out git repo') {
+		/*stage('Checking out git repo') {
     	  	steps {
 				echo 'Checkout...'
       			checkout scm
@@ -11,7 +11,7 @@ pipeline {
 
 		stage('Building Capstone Docker Image') {
 			steps {
-				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 					sh '''
 							docker build -t gemmaddy/capstone .
 						'''
@@ -21,16 +21,16 @@ pipeline {
 
 		stage('Push Image To Dockerhub') {
 				steps {
-					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 						sh '''
 							docker login -u $USERNAME -p $PASSWORD
 							docker push gemmaddy/capstone
 						'''
 					}
 				}
-			}	
+			}*/	
 
-		/*stage('Set current kubectl context') {
+		stage('Set current kubectl context') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
@@ -44,7 +44,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
-						kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=gemmaddy/capstone
+						kubectl set image gemmaddy/capstone
 					'''
 				}
 			}
@@ -94,6 +94,6 @@ pipeline {
 					'''
 				}
 			}
-		}	*/		
+		}			
 	}	
 }
