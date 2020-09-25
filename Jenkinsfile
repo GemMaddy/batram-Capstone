@@ -43,13 +43,15 @@ pipeline {
 		stage('Build image for K8') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {					
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 						sh '''
-							aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 854577269254.dkr.ecr.us-west-2.amazonaws.com
+							/*aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 854577269254.dkr.ecr.us-west-2.amazonaws.com
 							docker build -t capstone-project-cloud-devops .
 							docker tag capstone-project-cloud-devops:latest 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
-							docker push 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
-							kubectl set image 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+							docker push 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest*/
+							kubectl set image gemmady/capstone:latest
 						'''					
+					}
 				}
 			}
 		}	
