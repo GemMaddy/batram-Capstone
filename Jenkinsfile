@@ -2,14 +2,14 @@ pipeline {
   agent any
 	stages {
 
-		/*stage('Checking out git repo') {
+		stage('Checking out git repo') {
     	  	steps {
 				echo 'Checkout...'
       			checkout scm
 			  }			  
     	}			
 
-		stage('Building Capstone Docker Image') {
+		/*stage('Building Capstone Docker Image') {
 			steps {
 				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
 					sh '''
@@ -40,15 +40,19 @@ pipeline {
 			}
 		}
 		
-		stage('Set docker image for k8') {
+		stage('Build image for K8') {
 			steps {
-				withAWS(region:'us-west-2', credentials:'devopsroot') {
-					sh '''
-						kubectl set image gemmaddy/capstone
-					'''
+				withAWS(region:'us-west-2', credentials:'devopsroot') {					
+						sh '''
+							aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 854577269254.dkr.ecr.us-west-2.amazonaws.com
+							docker build -t capstone-project-cloud-devops .
+							docker tag capstone-project-cloud-devops:latest 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+							docker push 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+							kubectl set image 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+						'''					
 				}
 			}
-		}		
+		}	
 
 		stage('Deploy blue container') {
 			steps {
