@@ -30,7 +30,7 @@ pipeline {
 				}
 			}	
 
-		stage('Set current kubectl context') {
+		/*stage('Set current kubectl context') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
@@ -80,7 +80,7 @@ pipeline {
 			}
 		}	
 
-		/*stage('Wait user approve') {
+		stage('Wait user approve') {
             steps {
                 input "Rredirect to green?"
             }
