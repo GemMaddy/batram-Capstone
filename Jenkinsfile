@@ -48,7 +48,7 @@ pipeline {
 							docker build -t capstone-project-cloud-devops .
 							docker tag capstone-project-cloud-devops:latest 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
 							docker push 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
-							kubectl set image capstone-project-cloud-devops:latest
+							kubectl set image deployment/capstone-project-cloud-devops capstone-project-cloud-devops=854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
 						'''					
 				}
 			}
