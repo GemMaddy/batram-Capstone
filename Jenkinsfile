@@ -44,7 +44,7 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
-						kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=gemmaddy/capstone
+						kubectl set image gemmaddy/capstone
 					'''
 				}
 			}
