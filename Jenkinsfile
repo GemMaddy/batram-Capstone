@@ -44,7 +44,11 @@ pipeline {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {					
 						sh '''
-							kubectl set image  gemmaddy/capstone
+							aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 854577269254.dkr.ecr.us-west-2.amazonaws.com
+							docker build -t capstone-project-cloud-devops .
+							docker tag capstone-project-cloud-devops:latest 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+							docker push 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
+							kubectl set image 854577269254.dkr.ecr.us-west-2.amazonaws.com/capstone-project-cloud-devops:latest
 						'''					
 					}				
 			}
