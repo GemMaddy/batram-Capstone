@@ -39,6 +39,7 @@
   <li>Run <code>docker system prune</code> to clean up </li>
 </ul>
 
+***
 GitHub @ https://github.com/GemMaddy/batram-Capstone/
 ***
 DockerHub @ https://hub.docker.com/repository/docker/gemmaddy/capstone
