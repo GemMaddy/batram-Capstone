@@ -11,7 +11,7 @@ pipeline {
 
 		stage('Building Capstone Docker Image') {
 			steps {
-				withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'executive', usernameVariable: 'gemmaddy')]) {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
 					sh '''
 							docker build -t gemmaddy/capstone .
 						'''
@@ -21,16 +21,16 @@ pipeline {
 
 		stage('Push Image To Dockerhub') {
 				steps {
-					withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'executive', usernameVariable: 'gemmaddy')]) {
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
 						sh '''
-							docker login -u gemmaddy -p executive
+							docker login -u $USERNAME -p $PASSWORD
 							docker push gemmaddy/capstone
 						'''
 					}
 				}
 			}	
 
-		stage('Set current kubectl context') {
+		/*stage('Set current kubectl context') {
 			steps {
 				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
@@ -39,6 +39,16 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Set docker image for k8') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'devopsroot') {
+					sh '''
+						kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=gemmaddy/capstone
+					'''
+				}
+			}
+		}		
 
 		stage('Deploy blue container') {
 			steps {
@@ -70,7 +80,7 @@ pipeline {
 			}
 		}	
 
-		/*stage('Wait user approve') {
+		stage('Wait user approve') {
             steps {
                 input "Rredirect to green?"
             }
@@ -78,7 +88,7 @@ pipeline {
 
 		stage('Create the service in the cluster, redirect to green') {
 			steps {
-				withAWS(region:'us-east-2', credentials:'devopsroot') {
+				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
 						kubectl apply -f ./green-service.json
 					'''

@@ -4,25 +4,23 @@ pipeline {
 
 		stage('Create kubernetes cluster') {
 			steps {
-				withAWS(region:'us-east-2', credentials:'devopsroot') {
+				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
 						eksctl create cluster \
 						--name capstonecluster \
 						--version 1.17 \
 						--nodegroup-name capstone-node-workers \
 						--node-type t2.micro \
-						--nodes 1 \
-						--nodes-min 1 \
+						--nodes 2 \
+						--nodes-min 2 \
 						--nodes-max 3 \
 						--node-ami auto \
-						--region us-east-2 \
-						--zones us-east-2a \
-						--zones us-east-2b \
-						--zones us-east-2c \
+						--region us-west-2 \
+						--zones us-west-2a \
+						--zones us-west-2b \
+						--zones us-west-2c \
 						--ssh-access \
-						--ssh-public-key jenkin-access \
-						--fargate
-						--managed
+						--ssh-public-key k8-key-pair
 					'''
 				}
 			}
@@ -30,9 +28,9 @@ pipeline {
 
     	stage('Create conf file cluster') {
 			steps {
-				withAWS(region:'us-east-2', credentials:'devopsroot') {
+				withAWS(region:'us-west-2', credentials:'devopsroot') {
 					sh '''
-						aws eks --region us-east-2 update-kubeconfig --name capstonecluster
+						aws eks --region us-west-2 update-kubeconfig --name capstonecluster
 					'''
 				}
 			}
