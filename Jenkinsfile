@@ -11,7 +11,7 @@ pipeline {
 
 		stage('Building Capstone Docker Image') {
 			steps {
-				withCredentials([usernameColonPassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER-PWD', usernameVariable: 'DOCKER-UID')]) {
+				withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
 					sh '''
 							docker build -t gemmaddy/capstone .
 						'''
@@ -21,9 +21,9 @@ pipeline {
 
 		stage('Push Image To Dockerhub') {
 				steps {
-					withCredentials([usernameColonPassword(credentialsId: 'dockerhub', passwordVariable: 'DOCKER-PWD', usernameVariable: 'DOCKER-UID')]) {
+					withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']])
 						sh '''
-							docker login -u ${env.DOCKER-UID} -p ${env.DOCKER-PWD}
+							docker login -u $USERNAME -p $PASSWORD
 							docker push gemmaddy/capstone
 						'''
 					}
