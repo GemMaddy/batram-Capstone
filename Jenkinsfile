@@ -7,7 +7,13 @@ pipeline {
 				echo 'Checkout...'
       			checkout scm
 			  }			  
-    	}			
+    	}	
+		
+		stage('Lint HTML') {
+             		 steps {
+               		   sh 'tidy -q -e *.'
+             		 }
+         	}
 
 		stage('Building Capstone Docker Image') {
 			steps {
