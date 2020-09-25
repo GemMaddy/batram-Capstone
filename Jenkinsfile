@@ -39,6 +39,16 @@ pipeline {
 				}
 			}
 		}
+		
+		stage('Set docker image for k8') {
+			steps {
+				withAWS(region:'us-west-2', credentials:'devopsroot') {
+					sh '''
+						kubectl set image deployments/capstone-project-cloud-devops capstone-project-cloud-devops=gemmaddy/capstone
+					'''
+				}
+			}
+		}		
 
 		stage('Deploy blue container') {
 			steps {
